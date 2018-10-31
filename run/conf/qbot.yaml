@@ -54,10 +54,10 @@
 #Users allowed to run commands
 #For today command is accepted if incoming message user_id and channel(ClassName) just equals to one of following
 'users':
-    - {'user_id': '555555555', 'channel': 'QVkMessenger', 'description': 'VK: Кудрин Дмитрий', 'name': 'Qdrin'}
-    - {'user_id': '111111111', cnannel: 'QTelegramMessenger', 'description': "Telegram: Кудрин Дмитрий", 'name': Qdrin}
-    - {'user_id': '+11111111111', 'channel': 'QSMSMessenger', 'description': "QEmailMessenger", 'name': 'Qdrin'}
-    - {'user_id': 'user@mail.domain', 'channel': 'QEmailMessenger', 'description': "Email: Кудрин Дмитрий", 'name': 'Qdrin'}
+    - {'user_id': '555555555', 'channel': 'QVkMessenger', 'description': 'VK: User', 'name': 'User'}
+    - {'user_id': '111111111', cnannel: 'QTelegramMessenger', 'description': "Telegram: User", 'name': User}
+    - {'user_id': '+11111111111', 'channel': 'QSMSMessenger', 'description': "QEmailMessenger", 'name': 'User'}
+    - {'user_id': 'user@mail.domain', 'channel': 'QEmailMessenger', 'description': "Email: User", 'name': 'User'}
     - {'user_id': 'Telnet', 'channel': 'QConsoleMessenger', 'description': 'Console: Any local user', 'name': 'Local net user'}
     
 #Manager modules description section:

@@ -1,0 +1,79 @@
+- {'commandtext': 'Test', 'commandline': 'testFunction()',
+    'helptext': "Usage: Test\n
+                Тестовая команда. В нормальном состоянии, в ответ приходят 2 сообщения:\n
+                1. От соответствующего 'Демона связи' (SMS, Email, VK, Telegram, Console)\n
+                2. От главного модуля"}
+- {'commandtext': 'Log tail', 'commandline': 'showMessages(COMMAND_PARAMETERS)',
+    'helptext': "Usage: Log tail [КОЛИЧЕСТВО_СТРОК]\n
+                Возвращает последние КОЛИЧЕСТВО_СТРОК лог-файла Qbot. По умолчанию - 20"}
+- {'commandtext': 'Help', 'commandline': 'help(COMMAND_PARAMETERS)',
+    'helptext': "Usage: Help ['КОМАНДА']\n
+                Справка по командам Qbot\n
+                Без параметра выдает список команд"}
+- {'commandtext': 'Shell', 'commandline': 'runShellCommand(COMMAND_PARAMETERS)',
+    'helptext': "Usage: Shell BASH_COMMAND\n
+                Запуск shell-команд на хост-машине.\n
+                Интерактивные команды, естественно, не катят"}
+- {'commandtext': 'Stop', 'commandline': '"Stopping..."; reload()',
+    'helptext': "Usage: Reload\n
+                На самом деле, это выход из Qbot.service. После выхода systemd, по идее, должен рестартовать сервис. Однако, это не всегда происходит.\n
+                ОСТОРОЖНО!!!"}
+- {'commandtext': 'File', 'commandline': "cmdObject['self'].getFiles(cmdObject['files'], downloaddir)",
+    'helptext': "Gets file attached to message. Don't run it manually"}
+- {'commandtext': 'Update', 'commandline': 'update(COMMAND_PARAMETERS)',
+    'helptext': "Usage: Update [filename.tar.gz]\n
+                updates system files\n
+                Default file is the first one in 'update' directory. Old files will be saved to 'backup' directory usually as run.tar.gz"}
+- {'commandtext': 'Restore', 'commandline': 'restore(COMMAND_PARAMETERS)',
+    'helptext': "Restores system files from backup"}
+- {'commandtext': 'Approve update', 'commandline': 'approveUpdate()',
+    'helptext': "Approves current update."}
+- {'commandtext': 'Backup', 'commandline': 'backup(*(None, None) if COMMAND_PARAMETERS == "" else ([x.strip() for x in COMMAND_PARAMETERS.split(",")]))',
+    'helptext': "Usage: backup [FILE|DIR], [ARCHIVE_NAME]\n
+                Creates tar.gz archive of FILE or DIR (./run as default) with name ARCHIVE_NAME (run.tar.gz as default) and places it to ./backup directory"}
+- {'commandtext': 'List files', 'commandline': 'listFiles(COMMAND_PARAMETERS)',
+    'helptext': "Usage: List files PATH\n
+                Список файлов по указанному PATH"}
+- {'commandtext': 'Move file', 'commandline': 'moveFile(COMMAND_PARAMETERS)',
+    'helptext': "Usage: Move file SOURCE, DESTINATION\n
+                Перемещает SOURCE в DESTINATION. SOURCE - имя файла. DESTINATION - файл или каталог"}
+- {'commandtext': 'Delete file', 'commandline': 'deleteFile(COMMAND_PARAMETERS)', 'helptext': "Usage: Delete file FILE_NAME"}
+- {'commandtext': 'Get file', 'commandline': "cmdObject['self'].sendFile(cmdObject['replyto'], COMMAND_PARAMETERS)",
+    'helptext': "Usage: Get file FILE_NAME\n
+                Посылает запрошенный файл, если это возможно для данного канала связи"}
+- {'commandtext': 'Whoami', 'commandline': "str(cmdObject['replyto'])",
+    'helptext': "Usage: Whoami\nВозвращает адрес, на который отвечает робот (replyto)"}
+- {'commandtext': 'File update', 'commandline': "cmdObject['self'].getFiles(cmdObject, updatedir)",
+    'helptext': "Not for interactive use. Just sign 'update' in message text or caption when sending the upgrade files to system"}
+- {'commandtext': 'Статус', 'commandline': 'getStatus()', 'helptext': "Developing"}
+- {'commandtext': 'Сохранить статус', 'commandline': '"В разработке"', 'helptext': "Developing"}
+- {'commandtext': 'Status', 'commandline': 'В разработке', 'helptext': "Developing"}
+- {'commandtext': 'Save status', 'commandline': '"Developing"', 'helptext': "Developing"}
+- {'commandtext': 'Report', 'commandline': '"Developing"', 'helptext': "Developing"}
+- {'commandtext': 'Отчет', 'commandline': '"Developing"', 'helptext': "Developing"}
+- {'commandtext': 'Commands reload', 'commandline': 'В разработке', 'helptext': "Usage: Commands reload [ИМЯ_МОДУЛЯ]\nПерезагрузка списка команд из файлов конфигурации для главного модуля (по умолчанию) или для ИМЯ_МОДУЛЯ"}
+- {'commandtext': 'Обновить команды', 'commandline': 'В разработке', 'helptext': "Usage: Обновить команды [ИМЯ_МОДУЛЯ]\nПерезагрузка списка команд из файлов конфигурации для главного модуля (по умолчанию) или для ИМЯ_МОДУЛЯ"}
+- {'commandtext': 'Get variable', 'commandline': 'globals()[COMMAND_PARAMETERS]',
+    'helptext': "Usage: Get variable VAR_NAME\n
+                Присылает текстовое представление переменной VAR_NAME скрипта"}
+- {'commandtext': 'Reload', 'commandline': '"Выход c надеждой что systemd стартует qbot снова"; reload()',
+    'helptext': "Usage: Reload\n
+                На самом деле, это выход из Qbot.service. После выхода systemd, по идее, должен рестартовать сервис, однако, это не всегда происходит.\n
+                ОСТОРОЖНО!!!"}
+- {'commandtext': 'Дзен', 'commandline': 'zen(COMMAND_PARAMETERS)', 'helptext': "О-м-м-м-м."}
+- {'commandtext': 'Modules', 'commandline': "'Name, is_alive, autorestart:\\n%s' % '\\n'.join(['%s, %s, %s' % (m['name'], m['is_alive'], m['autorestart']) for m in managers])",
+    'helptext': "Usage: Modules [МОДУЛЬ1[{' '|,}МОДУЛЬ2[...]]]\n
+                Получить информацию по загруженным модулям управления МОДУЛЬ1, МОДУЛЬ2...\n
+                Без параметров - вывод всех модулей"}
+- {'commandtext': 'Module stop', 'commandline': 'stop_manager(COMMAND_PARAMETERS)',
+    'helptext': "Usage: Stop module ИМЯ_МОДУЛЯ\n
+                Остановка загруженного модуля управления ИМЯ_МОДУЛЯ.\n"}
+- {'commandtext': 'Module start', 'commandline': 'init_manager(logger=logger, **(list(filter(lambda x: x["name"] == COMMAND_PARAMETERS, config["managers"]))[0]))',
+    'helptext': "Usage: Start module ИМЯ_МОДУЛЯ\n
+                Запуск модуля управления ИМЯ_МОДУЛЯ.\n"}
+- {'commandtext': 'Args test', 'commandline': 'COMMAND_PARAMETERS',
+    'helptext': "Usage: Args test (СПИСОК) {,| } ЗНАЧЕНИЕ\n
+                СПИСОК = (VAL1[{,| }VAL2[...]])
+                Тест парсинга параметров.\n"}
+
+

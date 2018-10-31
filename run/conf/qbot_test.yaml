@@ -1,0 +1,89 @@
+#main module commands
+'commands': !include 'commands.yaml'
+#connectors configuration
+'connectors':
+    -   name : Telegram_Test #Display name
+        module: qtelegrammessenger #module defining the connector
+        class: QTelegramMessenger #The exact name of connector class
+        url : https://api.telegram.org/bot<your_test_bot_address>/ #Test bot addres received from telegram Bot Father
+        proxies : {'http':  'socks5://localhost:9050', 'https': 'socks5://localhost:9050'} #Proxie servers if needed (tor)
+        #message types proposed to download attachments from. Defaults are in code
+        #file_types: ['photo', 'document', 'audio']
+        default : 1 #Indicates default connector used to send messages originated by bot itsekf (info and alerts)
+        
+    -   name : VK_Test
+        class: QVkMessenger
+        module: qvkmessenger
+        group_token : <very_long_hex_string_test> #Test group token achieved from vk.com API
+        group_id : <test_bot_group_id> #Bot group id (unused yet)
+        default : True
+        
+    -   name : Email_Test
+        class: QEmailMessenger
+        module: qemailmessenger
+        login : user@mail.domain #Email login
+        password : Password   #Email password
+        mail_folder : INBOX/qbottest #If you place all the test bot messages to separate folder use it instead of INBOX
+        search_subject : test_qbot #qbot filtering messages by their Subject
+        imap_server : imap.mail.ru #IMAP Server
+        smtp_server : smtp.mail.ru #SMTP Server
+        imap_port : 143 #IMAP Port
+
+    #For test purposes you just need to buy secont modem
+#    -   name : SMS
+#        class : QSMSMessenger
+#        module : qsmsmessenger
+#        connection_type : adb #For future use. Should point to the method of modem access
+#        device_serial : 192.168.8.1:5555 #adb connection coordinates
+        
+    -   name : Console
+        class: QConsoleMessenger
+        module: qconsolemessenger
+        port : 49049 #Binding socket port. Address is always localhost
+        timeout : 0 #Timeout between module run() iterations (default is 1 sec)
+
+#contacts give information where to send system-initiated messages
+#we need at least one contact per default connector for normal running
+'contacts':
+    - {'address': None, 'channel': 'QConsoleMessenger', 'description': 'Default for QConsole'}
+    - {'address': 'qdrin@mail.ru', 'channel': 'QEmailMessenger', 'description': 'Default Email address'}
+    - {'address': '+79202599259', 'channel': 'QSMSMessenger', 'description': 'Default phone for SMS'}
+    - {'address': '223343775', 'channel': 'QTelegramMessenger', 'description': 'Default Telegram address(chat)'}
+    - {'address': '500541646', 'channel': 'QVkMessenger', 'description': 'Default VK address'}
+
+#Users allowed to run commands
+#For today command is accepted if incoming message user_id and channel(ClassName) just equals to one of following
+'users':
+    - {'user_id': '500541646', 'channel': 'QVkMessenger', 'description': 'VK: Кудрин Дмитрий', 'name': 'Qdrin'}
+    - {'user_id': '223343775', cnannel: 'QTelegramMessenger', 'description': "Telegram: Кудрин Дмитрий", 'name': Qdrin}
+    - {'user_id': '+79202599259', 'channel': 'QSMSMessenger', 'description': "QEmailMessenger", 'name': 'Qdrin'}
+    - {'user_id': 'qdrin@mail.ru', 'channel': 'QEmailMessenger', 'description': "Email: Кудрин Дмитрий", 'name': 'Qdrin'}
+    - {'user_id': 'Telnet', 'channel': 'QConsoleMessenger', 'description': 'Console: Any local user', 'name': 'Local net user'}
+    
+#Manager modules description section:
+'managers':
+    -   name: qman #Module name that is displayed to user
+        module: qmanager #module name to import
+        class: QManager  #Class to import
+        triggers :
+        #    - 
+        #        condition: 'len(self.errors) > 0', #String representing Boolean python expression
+        #        message: "'%s' % self.errors", #String in python format - alert message itself
+        #        interval : 0 #Integer interval between alerts in seconds. 0 - alert comes ones
+        #    
+            - {'condition': 'len(self.errors) > 0', 'message': "'%s' % self.errors", 'interval' : 0}
+            - {'condition': 'len(self.name) > 4', 'message': "'Extra name length: %s' % self.name", 'interval' : 0}
+        commands:
+        #Module command set
+            - {'commandtext': 'Command 2', 'commandline': "'Length of %s = %d' % ('Command 2', len('Command 2'))", 
+                'helptext': "Команда-заглушка 2"}
+            - {'commandtext': 'Command 1', 'commandline': "'Length of %s = %d' % ('Command 1', len('Command 1'))", 
+                'helptext': "Команда-заглушка 1"}
+            - {'commandtext': 'Test', 'commandline': "'%s: OK' % (self.name)", 
+                'helptext': "Команда тестирования жизни\n
+                            Параметров нет"}
+            - {'commandtext': 'Stop', 'commandline': "self.stop()", 
+                'helptext': "Остановка модуля\n
+                            Параметров нет"}                    
+    
+    

@@ -1,0 +1,27 @@
+#systemd service file for qbot. Lives at /etc/systemd/system
+[Unit]
+Description=QBot
+#For Raspbian
+After=networking.service
+For Ubuntu 18.04
+#After=NetworkManager-wait-online.service
+
+[Service]
+PIDFile=/opt/qbot/tmp/qbot.pid
+Restart=always
+WorkingDirectory=/opt/qbot
+#Should not be root
+User=pi
+Group=pi
+OOMScoreAdjust=-100
+
+RemainAfterExit=false
+#true
+ExecStart=/opt/qbot/run/start_qbot.sh
+#Unfortunatly, reload script doesn't work properly yet
+#ExecReload=/opt/qbot/run/reload_qbot.sh $MAINPID
+ExecStop=/opt/qbot/run/stop_qbot.sh $MAINPID
+TimeoutSec=300
+
+[Install]
+WantedBy=multi-user.target

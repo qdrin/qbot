@@ -1,0 +1,97 @@
+name: rpi
+
+module: qrpimanager
+class: QRpiManager
+
+command_parameters_string: COMMAND_PARAMETERS
+commands :
+    - {'commandtext': 'Реле', 'commandline': "self.getRelay( [int(x) for x in COMMAND_PARAMETERS.replace(',', ' ').split()] )",
+        'helptext': "Usage: Реле [ID1[{ |,}ID2[{ |,}ID3...]]]\n
+                    Возвращает текущее состояние  всех реле с указанными ID (список разделяется пробелами или запятыми)\n
+                    Параметр целый, необязательный. По умолчанию выводится состояние всех реле"}
+    - {'commandtext': 'Relay', 'commandline': "self.getRelay( [int(x) for x in COMMAND_PARAMETERS.replace(',', ' ').split()] )",
+        'helptext': "Usage: Relay [ID1[{ |,}ID2[{ |,}ID3...]]]\n
+                    Возвращает текущее состояние  всех реле с указанными ID (список разделяется пробелами или запятыми)\n
+                    Параметр целый, необязательный. По умолчанию выводится состояние всех реле"}
+    - {'commandtext': 'Реле вкл', 'commandline': 'self.setRelay([int(x) for x in COMMAND_PARAMETERS.replace(",", " ").split()],  1)',
+        'helptext': "Usage: Реле вкл [ID1[{ |,}ID2[{ |,}ID3...]]]\n
+                    Включает  реле с этим(и) ID\n
+                    По умолчанию - все реле"}
+    - {'commandtext': 'Relay on', 'commandline': 'self.setRelay([int(x) for x in COMMAND_PARAMETERS.replace(",", " ").split()], 1)',
+        'helptext': "Usage: Relay on [ID1[{ |,}ID2[{ |,}ID3...]]]\n
+                    Включает  реле с этим(и) ID\n
+                    По умолчанию - все реле\n
+                    Альяс для 'Реле вкл'"}
+    - {'commandtext': 'Реле выкл', 'commandline': 'self.setRelay([int(x) for x in COMMAND_PARAMETERS.replace(",", " ").split()], 0)',
+        'helptext': "Usage: Реле выкл НОМЕР_РЕЛЕ\n
+                    Выключает  реле с этим номером\n
+                    Параметр целый, обязательный"}
+    - {'commandtext': 'Relay off', 'commandline': 'self.setRelay([int(x) for x in COMMAND_PARAMETERS.replace(",", " ").split()], 0)',
+        'helptext': "Usage: Off relay НОМЕР_РЕЛЕ
+                    Выключает  реле с этим номером
+                    Параметр целый, обязательный
+                    Альяс для 'Реле выкл'"}
+    - {'commandtext': 'Temperature', 'commandline': "self.getSensor([int(x) for x in COMMAND_PARAMETERS.replace(',', ' ').split()])",
+        'helptext': "Usage: Temperature [ID1[{ |,}ID2[{ |,}ID3[...]]]]\n
+                    Читает и присылает температуру датчиков с указанными ID(список разделяется пробелами или запятыми)\n
+                    Параметр целый, необязательный. По умолчанию выводятся данные всех датчиков"}
+    - {'commandtext': 'Температура', 'commandline': "self.getSensor([int(x) for x in COMMAND_PARAMETERS.replace(',', ' ').split()])",
+        'helptext': "Usage: Температура [ID1[{ |,}ID2[{ |,}ID3[...]]]]\n
+                    Читает и присылает температуру датчиков с указанными ID(список разделяется пробелами или запятыми)\n
+                    Параметр целый, необязательный. По умолчанию выводятся данные всех датчиков"}
+    - {'commandtext': 'Get relay', 'commandline': "self.getRelay( [int(x) for x in COMMAND_PARAMETERS.replace(',', ' ').split()])",
+        'helptext': "Usage: Get relay [ID1[,ID2[ ID3[,...]]]]\n
+                    Возвращает текущее состояние  всех реле с указанными ID (список разделяется пробелами или запятыми)\n
+                    Параметр целый, необязательный. По умолчанию выводится состояние всех реле"}
+    - {'commandtext': 'Radio on', 'commandline': 'self.setRadio(int(COMMAND_PARAMETERS), True)',
+        'helptext': "Usage: Radio on НОМЕР_РАДИОРОЗЕТКИ\n
+                    Посылает код включения радиорозетке НОМЕР_РАДИОРОЗЕТКИ\n
+                    Без обратной связи и гарантии"}
+    - {'commandtext': 'Radio off', 'commandline': 'self.setRadio(int(COMMAND_PARAMETERS), False)',
+        'helptext': "Usage: Radio off НОМЕР_РАДИОРОЗЕТКИ\n
+                    Посылает код отключения радиорозетке НОМЕР_РАДИОРОЗЕТКИ\n
+                    Без обратной связи и гарантии"}
+    - {'commandtext': 'Radio', 'commandline': 'self.getRadio(int(COMMAND_PARAMETERS))',
+        'helptext': "Usage: Radio НОМЕР_РАДИОРОЗЕТКИ\n
+                    Возвращает последний код, посланный радиорозетке НОМЕР_РАДИОРОЗЕТКИ\n
+                    Без обратной связи и гарантии"}
+                    
+
+name : rpi
+triggers :
+#    - {
+#        'condition': 'len(self.errors) > 0', #String representing Boolean python expression
+#        'message': "'%s' % self.errors", #String in python format - alert message itself
+#        'interval' : 0 #Integer interval between alerts in seconds. 0 - alert comes ones
+#    }
+    - {'condition': 'len(self.errors) > 0', 'message': "'rpi.errors:\n%s' % self.errors", 'interval' : 0}
+
+db: #Now we have the only table sensors_data keeping sensors history values
+    name: rpi_db
+    file: run/qrpi.db
+    tables:
+        sensors_data: sensorsdata
+
+executables:
+    codesend: lib/433Utils/codesend
+
+#define attached devices
+relays:
+    - {'id': 1, 'bcmid': 12, 'name': 'relay1', 'initstate': 0, 'initmode': 0, 'state': 0, 'description': 'Котёл'}
+    - {'id': 2, 'bcmid': 16, 'name': 'relay2', 'initstate': 0, 'initmode': 0, 'state': 0, 'description': 'Циркуляционный насос'}
+    - {'id': 3, 'bcmid': 20, 'name': 'relay3', 'initstate': 0, 'initmode': 0, 'state': 0, 'description': 'Не подключено'}
+    - {'id': 4, 'bcmid': 21, 'name': 'relay4', 'initstate': 0, 'initmode': 0, 'state': 0, 'description': 'Не подключено'}
+
+sensors:
+    - {'id': 1, 'name': 'onboard', 'description': 'Датчик DS-18B20 в помещении', 'measuredvalue': 'Температура', 'lastupdate': 0, 'updateinterval': 1800,
+        'path': '/sys/bus/w1/devices/28-031674dbd4ff/w1_slave'} #Work configuration
+        #'path': '/home/qdrin/command/python/Projects/qbot/testenvironment/w1/devices/28-031674dbd4ff/w1_slave'} #Test configuration
+    - {'id': 2, 'name': 'cellar', 'description': 'Датчик DS-18B20 в подвале', 'measuredvalue': 'Температура', 'lastupdate': 0, 'updateinterval': 1800, 
+        'path': '/sys/bus/w1/devices/28-0516739123ff/w1_slave'} #Work configuration
+        #'path': '/home/qdrin/command/python/Projects/qbot/testenvironment/w1/devices/28-0516739123ff/w1_slave'} #Test configuration
+
+radios433:
+    - {'id': 1, 'code_on': '1381719', 'code_off': '1381716', 'name': 'radio1', 'description': 'Радиорозетка 1'}
+    - {'id': 2, 'code_on': '1394007', 'code_off': '1394004', 'name': 'radio2', 'description': 'Радиорозетка 2'}
+    - {'id': 3, 'code_on': '1397079', 'code_off': '1397076', 'name': 'radio3', 'description': 'Радиорозетка 3'}
+    

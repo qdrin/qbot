@@ -1,0 +1,12 @@
+'commands' : 
+    - {'commandtext': 'Command 2', 'commandline': "'%s: %d' % ('Command 2', len('Command 2'))", 
+        'helptext': "Команда-заглушка 2"}    
+'name' : 'qmanager'
+'triggers' :
+    'items' :
+    #    - {
+    #        'condition': 'len(self.errors) > 0', #String representing Boolean python expression
+    #        'message': "'%s' % self.errors", #String in python format - alert message itself
+    #        'interval' : 0 #Integer interval between alerts in seconds. 0 - alert comes ones
+    #    }
+        - {'condition': 'len(self.errors) > 0', 'message': "'%s' % self.errors", 'interval' : 0}

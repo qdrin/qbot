@@ -1,0 +1,10 @@
+- {'commandtext': 'Test', 'commandline': "'%s: OK' % (self.name)", 
+    'helptext': "Команда тестирования жизни\n
+                Параметров нет"}
+- {'commandtext': 'Stop', 'commandline': "self.stop()", 
+    'helptext': "Остановка модуля\n
+                Параметров нет"}
+- {'commandtext': 'Command 1', 'commandline': "'%s: %d' % ('Command 1', len('Command 1'))", 
+    'helptext': "Команда-заглушка 1"}
+- {'commandtext': 'Command 2', 'commandline': "'%s: %d' % ('Command 2', len('Command 2'))", 
+    'helptext': "Команда-заглушка 2"}

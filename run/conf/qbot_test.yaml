@@ -46,18 +46,18 @@
 #we need at least one contact per default connector for normal running
 'contacts':
     - {'address': None, 'channel': 'QConsoleMessenger', 'description': 'Default for QConsole'}
-    - {'address': 'qdrin@mail.ru', 'channel': 'QEmailMessenger', 'description': 'Default Email address'}
-    - {'address': '+79202599259', 'channel': 'QSMSMessenger', 'description': 'Default phone for SMS'}
-    - {'address': '223343775', 'channel': 'QTelegramMessenger', 'description': 'Default Telegram address(chat)'}
-    - {'address': '500541646', 'channel': 'QVkMessenger', 'description': 'Default VK address'}
+    - {'address': 'user@mail.domain', 'channel': 'QEmailMessenger', 'description': 'Default Email address'}
+    - {'address': '+11111111111', 'channel': 'QSMSMessenger', 'description': 'Default phone for SMS'}
+    - {'address': '111111111', 'channel': 'QTelegramMessenger', 'description': 'Default Telegram address(chat)'}
+    - {'address': '555555555', 'channel': 'QVkMessenger', 'description': 'Default VK address'}
 
 #Users allowed to run commands
 #For today command is accepted if incoming message user_id and channel(ClassName) just equals to one of following
 'users':
-    - {'user_id': '500541646', 'channel': 'QVkMessenger', 'description': 'VK: Кудрин Дмитрий', 'name': 'Qdrin'}
-    - {'user_id': '223343775', cnannel: 'QTelegramMessenger', 'description': "Telegram: Кудрин Дмитрий", 'name': Qdrin}
-    - {'user_id': '+79202599259', 'channel': 'QSMSMessenger', 'description': "QEmailMessenger", 'name': 'Qdrin'}
-    - {'user_id': 'qdrin@mail.ru', 'channel': 'QEmailMessenger', 'description': "Email: Кудрин Дмитрий", 'name': 'Qdrin'}
+    - {'user_id': '555555555', 'channel': 'QVkMessenger', 'description': 'VK: User', 'name': 'user'}
+    - {'user_id': '111111111', cnannel: 'QTelegramMessenger', 'description': "Telegram: User", 'name': user}
+    - {'user_id': '+11111111111', 'channel': 'QSMSMessenger', 'description': "QEmailMessenger", 'name': 'user'}
+    - {'user_id': 'user@mail.domain', 'channel': 'QEmailMessenger', 'description': "Email: User", 'name': 'user'}
     - {'user_id': 'Telnet', 'channel': 'QConsoleMessenger', 'description': 'Console: Any local user', 'name': 'Local net user'}
     
 #Manager modules description section:
